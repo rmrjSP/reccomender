@@ -33,6 +33,7 @@ router.get('/add', function(req, res, next) {
 
     })
 })
+//deded//
 
 // add a new media
 router.post('/add', function(req, res, next) {
