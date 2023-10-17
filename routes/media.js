@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var dbConn  = require('../lib/db');
+var dbConn  = require('../db');
 
 // display media page
 router.get('/', function(req, res, next) {
