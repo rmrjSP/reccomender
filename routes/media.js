@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 // display add media page
 router.get('/add', function(req, res, next) {
     // render to add.ejs
-    res.render('media/add', {
+    res.render('C:\\Users\\r66d\\Documents\\GitHub\\senior_project\\views\\media\\add.html', {
         name: '',
         author: '',
         type: '',
@@ -36,9 +36,9 @@ router.get('/add', function(req, res, next) {
 //deded//
 
 // add a new media
-router.post('/add', function(req, res, next) {
+router.post('C:\\Users\\r66d\\Documents\\GitHub\\senior_project\\views\\media\\add.html', function(req, res, next) {
 
-    let media_name = req.body.name;
+    let media_name = req.body.media_name;
     let media_author = req.body.author;
     let media_type = req.body.type;
     let media_description = req.body.description;
@@ -53,7 +53,7 @@ router.post('/add', function(req, res, next) {
         // set flash message
         req.flash('error', "Please enter name and author");
         // render to add.ejs with flash message
-        res.render('media/add', {
+        res.render('C:\\Users\\r66d\\Documents\\GitHub\\senior_project\\views\\media\\add.html', {
             media_name: media_name,
             media_author: media_author,
             media_type: media_type,
@@ -84,7 +84,7 @@ router.post('/add', function(req, res, next) {
                 req.flash('error', err)
 
                 // render to add.ejs
-                res.render('media/add', {
+                res.render('C:\\Users\\r66d\\Documents\\GitHub\\senior_project\\views\\media\\add.html', {
                     media_name: form_data.media_name,
                     media_author: form_data.media_author,
                     media_type: form_data.media_type,
