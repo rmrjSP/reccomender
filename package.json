@@ -4,6 +4,7 @@
     "express": "^4.18.2",
     "express-flash": "^0.0.2",
     "express-session": "^1.17.3",
+    "jupyter": "^0.0.0",
     "method-override": "^3.0.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.1"
