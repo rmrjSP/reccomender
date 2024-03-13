@@ -96,4 +96,12 @@ def searchA(title):
     return results
 
 # %%
-searchB('Harry Potter')
+
+
+user_input = st.text_input("Title", "lock in")
+st.write("Similar Books")
+st.dataframe(searchB(user_input))
+st.write("Similar Movies")
+st.dataframe(searchM(user_input))
+st.write("Similar Animanga")
+st.dataframe(searchA(user_input))
