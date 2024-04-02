@@ -57,7 +57,16 @@ vectorizer = TfidfVectorizer(ngram_range=(1,2))
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
  
-def searchM(title):
+def searchMT(title):
+   
+    title = clean_title(title)
+    tfidfT = vectorizer.fit_transform(movies_df['Series_Title'])
+    query_vec = vectorizer.transform([title])
+    similarity = cosine_similarity(query_vec, tfidfT).flatten()
+    indices = np.argpartition(similarity, -5)[-5:]
+    results = movies_df.iloc[indices]
+    return results
+def searchMD(title):
    
     title = clean_title(title)
     tfidfT = vectorizer.fit_transform(movies_df['Overview'])
@@ -66,15 +75,44 @@ def searchM(title):
     indices = np.argpartition(similarity, -5)[-5:]
     results = movies_df.iloc[indices]
     return results
+def searchMC(title):
+   
+    title = clean_title(title)
+    tfidfT = vectorizer.fit_transform(movies_df['Genre'])
+    query_vec = vectorizer.transform([title])
+    similarity = cosine_similarity(query_vec, tfidfT).flatten()
+    indices = np.argpartition(similarity, -5)[-5:]
+    results = movies_df.iloc[indices]
+    return results
+
+
 
 # %%
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
  
-def searchB(title):
+def searchBT(title):
    
     title = clean_title(title)
     tfidfB = vectorizer.fit_transform(books_df['title'])
+    query_vec = vectorizer.transform([title])
+    similarity = cosine_similarity(query_vec, tfidfB).flatten()
+    indices = np.argpartition(similarity, -5)[-5:]
+    results = books_df.iloc[indices]
+    return results
+def searchBD(title):
+   
+    title = clean_title(title)
+    tfidfB = vectorizer.fit_transform(books_df['description'])
+    query_vec = vectorizer.transform([title])
+    similarity = cosine_similarity(query_vec, tfidfB).flatten()
+    indices = np.argpartition(similarity, -5)[-5:]
+    results = books_df.iloc[indices]
+    return results
+def searchBC(title):
+   
+    title = clean_title(title)
+    tfidfB = vectorizer.fit_transform(books_df['categories'])
     query_vec = vectorizer.transform([title])
     similarity = cosine_similarity(query_vec, tfidfB).flatten()
     indices = np.argpartition(similarity, -5)[-5:]
@@ -85,7 +123,16 @@ def searchB(title):
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
  
-def searchA(title):
+def searchAT(title):
+   
+    title = clean_title(title)
+    tfidfA = vectorizer.fit_transform(animanga_df['title'])
+    query_vec = vectorizer.transform([title])
+    similarity = cosine_similarity(query_vec, tfidfA).flatten()
+    indices = np.argpartition(similarity, -5)[-5:]
+    results = animanga_df.iloc[indices]
+    return results
+def searchAD(title):
    
     title = clean_title(title)
     tfidfA = vectorizer.fit_transform(animanga_df['description'])
@@ -94,14 +141,39 @@ def searchA(title):
     indices = np.argpartition(similarity, -5)[-5:]
     results = animanga_df.iloc[indices]
     return results
+def searchAC(title):
+   
+    title = clean_title(title)
+    tfidfA = vectorizer.fit_transform(animanga_df['tags'])
+    query_vec = vectorizer.transform([title])
+    similarity = cosine_similarity(query_vec, tfidfA).flatten()
+    indices = np.argpartition(similarity, -5)[-5:]
+    results = animanga_df.iloc[indices]
+    return results
 
 # %%
-
-
-user_input = st.text_input("Title", "lock in")
-st.write("Similar Books")
-st.dataframe(searchB(user_input))
-st.write("Similar Movies")
-st.dataframe(searchM(user_input))
-st.write("Similar Animanga")
-st.dataframe(searchA(user_input))
+option = st.selectbox(
+    'How would you like to search?',
+    ('title', 'description', 'tags'))
+user_input = st.text_input("Title", "harry potter")
+if option == 'title': 
+    st.write("Similar Books")
+    st.dataframe(searchBT(user_input))
+    st.write("Similar Movies")
+    st.dataframe(searchMT(user_input))
+    st.write("Similar Animanga")
+    st.dataframe(searchAT(user_input))
+if option == 'description':
+    st.write("Similar Books")
+    st.dataframe(searchBD(user_input))
+    st.write("Similar Movies")
+    st.dataframe(searchMD(user_input))
+    st.write("Similar Animanga")
+    st.dataframe(searchAD(user_input))
+if option == 'tags':
+    st.write("Similar Books")
+    st.dataframe(searchBC(user_input))
+    st.write("Similar Movies")
+    st.dataframe(searchMC(user_input))
+    st.write("Similar Animanga")
+    st.dataframe(searchAC(user_input))
