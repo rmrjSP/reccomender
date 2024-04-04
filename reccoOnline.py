@@ -57,31 +57,31 @@ vectorizer = TfidfVectorizer(ngram_range=(1,2))
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
  
-def searchMT(title):
+def searchMT(title, num):
    
     title = clean_title(title)
     tfidfT = vectorizer.fit_transform(movies_df['Series_Title'])
     query_vec = vectorizer.transform([title])
     similarity = cosine_similarity(query_vec, tfidfT).flatten()
-    indices = np.argpartition(similarity, -5)[-5:]
+    indices = np.argpartition(similarity, -num)[-num:]
     results = movies_df.iloc[indices]
     return results
-def searchMD(title):
+def searchMD(title, num):
    
     title = clean_title(title)
     tfidfT = vectorizer.fit_transform(movies_df['Overview'])
     query_vec = vectorizer.transform([title])
     similarity = cosine_similarity(query_vec, tfidfT).flatten()
-    indices = np.argpartition(similarity, -5)[-5:]
+    indices = np.argpartition(similarity, -num)[-num:]
     results = movies_df.iloc[indices]
     return results
-def searchMC(title):
+def searchMC(title, num):
    
     title = clean_title(title)
     tfidfT = vectorizer.fit_transform(movies_df['Genre'])
     query_vec = vectorizer.transform([title])
     similarity = cosine_similarity(query_vec, tfidfT).flatten()
-    indices = np.argpartition(similarity, -5)[-5:]
+    indices = np.argpartition(similarity, -num)[-num:]
     results = movies_df.iloc[indices]
     return results
 
@@ -91,31 +91,31 @@ def searchMC(title):
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
  
-def searchBT(title):
+def searchBT(title, num):
    
     title = clean_title(title)
     tfidfB = vectorizer.fit_transform(books_df['title'])
     query_vec = vectorizer.transform([title])
     similarity = cosine_similarity(query_vec, tfidfB).flatten()
-    indices = np.argpartition(similarity, -5)[-5:]
+    indices = np.argpartition(similarity, -num)[-num:]
     results = books_df.iloc[indices]
     return results
-def searchBD(title):
+def searchBD(title, num):
    
     title = clean_title(title)
     tfidfB = vectorizer.fit_transform(books_df['description'])
     query_vec = vectorizer.transform([title])
     similarity = cosine_similarity(query_vec, tfidfB).flatten()
-    indices = np.argpartition(similarity, -5)[-5:]
+    indices = np.argpartition(similarity, -num)[-num:]
     results = books_df.iloc[indices]
     return results
-def searchBC(title):
+def searchBC(title, num):
    
     title = clean_title(title)
     tfidfB = vectorizer.fit_transform(books_df['categories'])
     query_vec = vectorizer.transform([title])
     similarity = cosine_similarity(query_vec, tfidfB).flatten()
-    indices = np.argpartition(similarity, -5)[-5:]
+    indices = np.argpartition(similarity, -num)[-num:]
     results = books_df.iloc[indices]
     return results
 
@@ -123,31 +123,31 @@ def searchBC(title):
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
  
-def searchAT(title):
+def searchAT(title, num):
    
     title = clean_title(title)
     tfidfA = vectorizer.fit_transform(animanga_df['title'])
     query_vec = vectorizer.transform([title])
     similarity = cosine_similarity(query_vec, tfidfA).flatten()
-    indices = np.argpartition(similarity, -5)[-5:]
+    indices = np.argpartition(similarity, -num)[-num:]
     results = animanga_df.iloc[indices]
     return results
-def searchAD(title):
+def searchAD(title, num):
    
     title = clean_title(title)
     tfidfA = vectorizer.fit_transform(animanga_df['description'])
     query_vec = vectorizer.transform([title])
     similarity = cosine_similarity(query_vec, tfidfA).flatten()
-    indices = np.argpartition(similarity, -5)[-5:]
+    indices = np.argpartition(similarity, -num)[-num:]
     results = animanga_df.iloc[indices]
     return results
-def searchAC(title):
+def searchAC(title, num):
    
     title = clean_title(title)
     tfidfA = vectorizer.fit_transform(animanga_df['tags'])
     query_vec = vectorizer.transform([title])
     similarity = cosine_similarity(query_vec, tfidfA).flatten()
-    indices = np.argpartition(similarity, -5)[-5:]
+    indices = np.argpartition(similarity, -num)[-num:]
     results = animanga_df.iloc[indices]
     return results
 
@@ -156,24 +156,28 @@ option = st.selectbox(
     'How would you like to search?',
     ('title', 'description', 'tags'))
 user_input = st.text_input("Title", "harry potter")
-if option == 'title': 
-    st.write("Similar Books")
-    st.dataframe(searchBT(user_input))
-    st.write("Similar Movies")
-    st.dataframe(searchMT(user_input))
-    st.write("Similar Animanga")
-    st.dataframe(searchAT(user_input))
-if option == 'description':
-    st.write("Similar Books")
-    st.dataframe(searchBD(user_input))
-    st.write("Similar Movies")
-    st.dataframe(searchMD(user_input))
-    st.write("Similar Animanga")
-    st.dataframe(searchAD(user_input))
-if option == 'tags':
-    st.write("Similar Books")
-    st.dataframe(searchBC(user_input))
-    st.write("Similar Movies")
-    st.dataframe(searchMC(user_input))
-    st.write("Similar Animanga")
-    st.dataframe(searchAC(user_input))
+num_input = st.number_input("how many titles to return", 5)
+if num_input <= 35:
+    if option == 'title': 
+        st.write("Similar Books")
+        st.dataframe(searchBT(user_input, num_input))
+        st.write("Similar Movies")
+        st.dataframe(searchMT(user_input, num_input))
+        st.write("Similar Animanga")
+        st.dataframe(searchAT(user_input, num_input))
+    if option == 'description':
+        st.write("Similar Books")
+        st.dataframe(searchBD(user_input, num_input))
+        st.write("Similar Movies")
+        st.dataframe(searchMD(user_input, num_input))
+        st.write("Similar Animanga")
+        st.dataframe(searchAD(user_input, num_input))
+    if option == 'tags':
+        st.write("Similar Books")
+        st.dataframe(searchBC(user_input, num_input))
+        st.write("Similar Movies")
+        st.dataframe(searchMC(user_input, num_input))
+        st.write("Similar Animanga")
+        st.dataframe(searchAC(user_input, num_input))
+else: 
+    st.write("no more then 35 titles")
