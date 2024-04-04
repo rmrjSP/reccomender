@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.write("Recommendations")
+st.title("Recommendations")
 
 # %%
 
@@ -159,25 +159,25 @@ user_input = st.text_input("Title", "harry potter")
 num_input = st.number_input("how many titles to return", 5)
 if num_input <= 35:
     if option == 'title': 
-        st.write("Similar Books")
+        st.header("Similar Books")
         st.dataframe(searchBT(user_input, num_input))
-        st.write("Similar Movies")
+        st.header("Similar Movies")
         st.dataframe(searchMT(user_input, num_input))
-        st.write("Similar Animanga")
+        st.header("Similar Animanga")
         st.dataframe(searchAT(user_input, num_input))
     if option == 'description':
-        st.write("Similar Books")
+        st.header("Similar Books")
         st.dataframe(searchBD(user_input, num_input))
-        st.write("Similar Movies")
+        st.header("Similar Movies")
         st.dataframe(searchMD(user_input, num_input))
-        st.write("Similar Animanga")
+        st.header("Similar Animanga")
         st.dataframe(searchAD(user_input, num_input))
     if option == 'tags':
-        st.write("Similar Books")
+        st.header("Similar Books")
         st.dataframe(searchBC(user_input, num_input))
-        st.write("Similar Movies")
+        st.header("Similar Movies")
         st.dataframe(searchMC(user_input, num_input))
-        st.write("Similar Animanga")
+        st.header("Similar Animanga")
         st.dataframe(searchAC(user_input, num_input))
 else: 
-    st.write("no more then 35 titles")
+    st.title("no more then 35 titles")
