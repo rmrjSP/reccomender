@@ -161,22 +161,28 @@ if num_input <= 35:
     if option == 'title': 
         st.header("Similar Books")
         st.dataframe(searchBT(user_input, num_input))
+        st.write('---')
         st.header("Similar Movies")
         st.dataframe(searchMT(user_input, num_input))
+        st.write('---')
         st.header("Similar Animanga")
         st.dataframe(searchAT(user_input, num_input))
     if option == 'description':
         st.header("Similar Books")
         st.dataframe(searchBD(user_input, num_input))
+        st.write('---')
         st.header("Similar Movies")
         st.dataframe(searchMD(user_input, num_input))
+        st.write('---')
         st.header("Similar Animanga")
         st.dataframe(searchAD(user_input, num_input))
     if option == 'tags':
         st.header("Similar Books")
         st.dataframe(searchBC(user_input, num_input))
+        st.write('---')
         st.header("Similar Movies")
         st.dataframe(searchMC(user_input, num_input))
+        st.write('---')
         st.header("Similar Animanga")
         st.dataframe(searchAC(user_input, num_input))
 else: 
