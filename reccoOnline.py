@@ -1,6 +1,6 @@
 import streamlit as st
 
-st.title("Recommendations")
+st.title("Recommendationator")
 
 # %%
 
